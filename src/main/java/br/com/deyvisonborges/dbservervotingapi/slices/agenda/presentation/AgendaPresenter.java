@@ -19,4 +19,13 @@ public final class AgendaPresenter {
       .map(AgendaPresenter::toResponse)
       .toList();
   }
+  
+  public static AgendaModel fromCommandToModel(final AgendaResponse response) {
+    return AgendaModel.restore(
+      response.id(),
+      response.title(),
+      response.description(),
+      response.status()
+    );
+  }
 }
