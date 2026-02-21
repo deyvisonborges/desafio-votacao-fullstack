@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/agendas")
+@RequestMapping("/api/v1/agendas")
 public class AgendaController {
   private final CreateAgendaHandler createAgendaHandler;
   private final FindAllAgendasHandler findAllAgendasHandler;

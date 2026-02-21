@@ -1,76 +1,120 @@
 package br.com.deyvisonborges.dbservervotingapi.slices.agenda.presentation;
 
-import br.com.deyvisonborges.dbservervotingapi.configs.AbstractTestcontainersIntegrationTest;
 import br.com.deyvisonborges.dbservervotingapi.slices.agenda.AgendaModel;
-import br.com.deyvisonborges.dbservervotingapi.slices.agenda.AgendaTestMocks;
+import br.com.deyvisonborges.dbservervotingapi.slices.agenda.AgendaTestDataBuilder;
+import br.com.deyvisonborges.dbservervotingapi.slices.agenda.features.FindAgendaByIdHandler;
+import br.com.deyvisonborges.dbservervotingapi.slices.agenda.features.FindAllAgendasHandler;
 import br.com.deyvisonborges.dbservervotingapi.slices.agenda.features.create.CreateAgendaCommand;
-//import br.com.deyvisonborges.dbservervotingapi.slices.agenda.persistence.AgendaMapper;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.*;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import br.com.deyvisonborges.dbservervotingapi.slices.agenda.features.create.CreateAgendaHandler;
+import br.com.deyvisonborges.dbservervotingapi.slices.agenda.features.update.UpdateAgendaCommand;
+import br.com.deyvisonborges.dbservervotingapi.slices.agenda.features.update.UpdateAgendaHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
-//import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.DeserializationFeature;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-public class AgendaControllerTest extends AbstractTestcontainersIntegrationTest {
-  @LocalServerPort
-  private int port;
-//  final String HEADER_PARAM_ORIGIN = "Origin";
-//  final String ORIGIN_REMOTE = "https://deyvisonborges.com.br";
+@WebMvcTest(AgendaController.class)
+public class AgendaControllerTest {
+  private ObjectMapper objectMapper;
+  @Autowired MockMvc mockMvc;
   
-  private static RequestSpecification specification;
-  private static ObjectMapper mapper;
-  private static AgendaModel agendaModel;
+  @MockitoBean private CreateAgendaHandler createAgendaHandler;
+  @MockitoBean private FindAllAgendasHandler findAllAgendasHandler;
+  @MockitoBean private FindAgendaByIdHandler findAgendaByIdHandler;
+  @MockitoBean private UpdateAgendaHandler updateAgendaHandler;
   
-  @BeforeAll()
-  static void init() {
-    mapper = new ObjectMapper();
-    mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-    mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-  }
+  AgendaModel mockAgenda;
   
-  @BeforeEach()
+  @BeforeEach
   void beforeEach() {
-    agendaModel = AgendaTestMocks.fakeAgendaModel();
+    objectMapper = new ObjectMapper();
+    mockAgenda = AgendaTestDataBuilder.persistedAgenda();
   }
   
   @Test
-  @DisplayName("shouldCreateAAgenda")
-  void createAgenda() throws Exception {
-    specification = new RequestSpecBuilder()
-//      .addHeader(HEADER_PARAM_ORIGIN, "http://localhost:8080")
-      .setBasePath("/api/v1/agendas") // Define o caminho base da API (ex: /api/v1)
-      .setPort(port) // Define a porta onde a API está rodando
-      .addFilter(new RequestLoggingFilter(LogDetail.ALL)) // Loga tudo que você ENVIA no console
-      .addFilter(new ResponseLoggingFilter(LogDetail.ALL)) // Loga tudo que você RECEBE no console
-      .build(); // Finaliza a construção do objeto de especificação
+  @DisplayName("Should return agenda when id exists")
+  public void shouldReturnAgendaWhenIdExists() throws Exception {
+    Long id = mockAgenda.getId();
+  
+    Mockito.when(findAgendaByIdHandler.execute(id)).thenReturn(mockAgenda);
     
-    var content = RestAssured.given(specification)
-      .contentType(MediaType.APPLICATION_JSON_VALUE)
-      .body(new CreateAgendaCommand(agendaModel.getTitle(), agendaModel.getDescription()))
-      .when()
-      .post()
-      .then()
-      .statusCode(200)
-      .extract()
-      .body()
-      .asString();
+    mockMvc.perform(MockMvcRequestBuilders
+        .get("/api/v1/agendas/{id}", id)
+        .accept(MediaType.APPLICATION_JSON))
+      .andDo(MockMvcResultHandlers.print())
+      .andExpect(MockMvcResultMatchers.status().isOk())
+      .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(id))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Titulo"));
+  }
+  
+  @Test
+  @DisplayName("Should return all agendas")
+  public void shouldReturnAllAgendas() throws Exception {
+    final var agendas = AgendaTestDataBuilder.persistedAgendas();
     
-    var mappedResponse = mapper.readValue(content, AgendaResponse.class);
-    agendaModel = AgendaPresenter.fromCommandToModel(mappedResponse);
+    Mockito.when(findAllAgendasHandler.execute()).thenReturn(agendas);
     
-    Assertions.assertNotNull(agendaModel);
-    Assertions.assertNotNull(agendaModel.getTitle());
-    Assertions.assertNotNull(agendaModel.getDescription());
-    Assertions.assertNotNull(agendaModel.getStatus());
-    Assertions.assertNotNull(agendaModel.getId());
-    Assertions.assertEquals("Parceria com Instituição de Crédito", agendaModel.getTitle());
+    mockMvc.perform(MockMvcRequestBuilders
+        .get("/api/v1/agendas"))
+      .andDo(MockMvcResultHandlers.print())
+      .andExpect(MockMvcResultMatchers.status().isOk())
+      .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(2))
+      .andExpect(MockMvcResultMatchers.jsonPath("$[0].title").value("Titulo"))
+      .andExpect(MockMvcResultMatchers.jsonPath("$[1].title").value("Titulo 2"));
+  }
+  
+  @Test
+  @DisplayName("Should create a new agenda successfully")
+  public void shouldCreateAgendaSuccessfully() throws Exception {
+    var command = new CreateAgendaCommand(
+      mockAgenda.getTitle(),
+      mockAgenda.getDescription()
+    );
+  
+    Mockito.when(
+      createAgendaHandler.execute(
+        ArgumentMatchers.any(CreateAgendaCommand.class)
+      )
+    ).thenReturn(mockAgenda);
+    
+    mockMvc.perform(MockMvcRequestBuilders
+        .post("/api/v1/agendas")
+        .content(objectMapper.writeValueAsString(command))
+        .contentType(MediaType.APPLICATION_JSON))
+      .andDo(MockMvcResultHandlers.print())
+      .andExpect(MockMvcResultMatchers.status().isOk())
+      .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(mockAgenda.getId()))
+      .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Titulo"));
+  }
+  
+  @Test()
+  @DisplayName("Should update agenda successfully")
+  void shouldUpdateAgendaSuccessfully() throws Exception {
+    var command = new UpdateAgendaCommand(mockAgenda.getTitle(), mockAgenda.getDescription());
+    
+    Mockito.doNothing().when(updateAgendaHandler).execute(
+      ArgumentMatchers.eq(mockAgenda.getId()),
+      ArgumentMatchers.any(UpdateAgendaCommand.class)
+    );
+    
+    mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/agendas/{agendaId}", mockAgenda.getId())
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(command)))
+      .andExpect(MockMvcResultMatchers.status().isNoContent());
+    
+    Mockito.verify(updateAgendaHandler).execute(
+      ArgumentMatchers.eq(mockAgenda.getId()),
+      ArgumentMatchers.any(UpdateAgendaCommand.class)
+    );
   }
 }

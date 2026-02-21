@@ -1,6 +1,29 @@
-# Votação
+# 🗳 Voting API
 
-## Configuracoes
+API para gerenciamento de pautas e sessões de votação.
+
+## 🚀 Requisitos
+
+- Git
+- Bash (Linux/macOS)
+- Docker (para os testes funcionarem com Testcontainers e rodar a base local do projeto)
+
+---
+
+## ⚙️ Setup automático
+
+Execute:
+
+```bash
+bash setup.sh
+```
+
+Execucao dos testes ou rodar a aplicacao
+
+```bash
+make test # para rodar os testes
+make run # pra rodar a aplicacao
+```
 
 ## Objetivo
 

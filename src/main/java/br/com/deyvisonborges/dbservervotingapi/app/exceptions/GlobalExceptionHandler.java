@@ -31,16 +31,5 @@ public class GlobalExceptionHandler {
     log.error("BusinessException: {}", ex.getMessage());
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
-  
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
-    ErrorResponse error = new ErrorResponse(
-      "Ocorreu um erro interno inesperado.",
-      HttpStatus.INTERNAL_SERVER_ERROR.value(),
-      System.currentTimeMillis()
-    );
-    log.error("Unhandled Exception: {}", ex.getMessage(), ex);
-    return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
 }
 

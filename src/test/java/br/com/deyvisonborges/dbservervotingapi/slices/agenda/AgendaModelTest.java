@@ -12,7 +12,7 @@ public class AgendaModelTest {
   AgendaModel fakeModel;
   @BeforeEach()
   public void beforeEach() {
-    fakeModel = AgendaTestMocks.fakeAgendaModel();
+    fakeModel = AgendaTestDataBuilder.newAgenda();
   }
   
   @Test
@@ -25,16 +25,16 @@ public class AgendaModelTest {
     Assertions.assertNotNull(agenda.getDescription());
     Assertions.assertNotNull(agenda.getStatus());
     Assertions.assertEquals(AgendaStatus.CREATED, agenda.getStatus());
-    Assertions.assertEquals("Titulo de teste", agenda.getTitle());
-    Assertions.assertEquals("Descricao de teste", agenda.getDescription());
+    Assertions.assertEquals("Titulo", agenda.getTitle());
+    Assertions.assertEquals("Descricao", agenda.getDescription());
   }
   
   @Test
   @DisplayName("Should create agenda with CREATED status when valid data")
   void shouldCreateAgendaWithCreatedStatusWhenValidData() {
     Assertions.assertNotNull(fakeModel);
-    Assertions.assertEquals("Titulo de teste", fakeModel.getTitle());
-    Assertions.assertEquals("Descricao de teste", fakeModel.getDescription());
+    Assertions.assertEquals("Titulo", fakeModel.getTitle());
+    Assertions.assertEquals("Descricao", fakeModel.getDescription());
     Assertions.assertEquals(AgendaStatus.CREATED, fakeModel.getStatus());
   }
   
