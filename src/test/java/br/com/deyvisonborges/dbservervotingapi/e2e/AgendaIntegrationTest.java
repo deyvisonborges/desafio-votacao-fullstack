@@ -4,7 +4,6 @@ import br.com.deyvisonborges.dbservervotingapi.configs.AbstractTestcontainersInt
 import br.com.deyvisonborges.dbservervotingapi.slices.agenda.AgendaModel;
 import br.com.deyvisonborges.dbservervotingapi.slices.agenda.AgendaTestDataBuilder;
 import br.com.deyvisonborges.dbservervotingapi.slices.agenda.features.create.CreateAgendaCommand;
-//import br.com.deyvisonborges.dbservervotingapi.slices.agenda.persistence.AgendaMapper;
 import br.com.deyvisonborges.dbservervotingapi.slices.agenda.presentation.AgendaPresenter;
 import br.com.deyvisonborges.dbservervotingapi.slices.agenda.presentation.AgendaResponse;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -17,16 +16,12 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-//import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 
 public class AgendaIntegrationTest extends AbstractTestcontainersIntegrationTest {
   @LocalServerPort
   private int port;
-//  final String HEADER_PARAM_ORIGIN = "Origin";
-//  final String ORIGIN_REMOTE = "https://deyvisonborges.com.br";
   
   private static RequestSpecification specification;
   private static ObjectMapper mapper;
@@ -48,7 +43,6 @@ public class AgendaIntegrationTest extends AbstractTestcontainersIntegrationTest
   @DisplayName("shouldCreateAAgenda")
   void createAgenda() throws Exception {
     specification = new RequestSpecBuilder()
-//      .addHeader(HEADER_PARAM_ORIGIN, "http://localhost:8080")
       .setBasePath("/api/v1/agendas")
       .setPort(port)
       .addFilter(new RequestLoggingFilter(LogDetail.ALL))

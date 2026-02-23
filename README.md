@@ -24,6 +24,15 @@ Execucao dos testes ou rodar a aplicacao
 make test # para rodar os testes
 make run # pra rodar a aplicacao
 ```
+## AssociatedIds válidos
+
+```
+52998224725
+12345678909
+11144477735
+93541134780
+28625587887
+  ```
 
 ## Objetivo
 

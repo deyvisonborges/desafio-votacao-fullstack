@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      PROFILE: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup
+        run: bash setup.sh
+
+      - name: Build
+        run: ./mvnw clean install
+
+      - name: Test
+        run: bash test.sh
+
+      - name: Run
+        run: ./mvnw spring-boot:run -Dspring.profiles.active=${PROFILE}
