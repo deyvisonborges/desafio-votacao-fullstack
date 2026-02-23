@@ -14,7 +14,7 @@ public class VotingSessionSchema {
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "agenda_id", nullable = false)
-  private AgendaSchema agendaId;
+  private AgendaSchema agenda;
   
   @Column(name = "start_at", nullable = false)
   private Instant startAt;
@@ -30,12 +30,12 @@ public class VotingSessionSchema {
     this.id = id;
   }
   
-  public AgendaSchema getAgendaId() {
-    return agendaId;
+  public AgendaSchema getAgenda() {
+    return agenda;
   }
   
   public void setAgendaId(AgendaSchema agendaId) {
-    this.agendaId = agendaId;
+    this.agenda = agendaId;
   }
   
   public Instant getStartAt() {
