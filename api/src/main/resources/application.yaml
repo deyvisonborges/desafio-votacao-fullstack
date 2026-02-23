@@ -1,0 +1,42 @@
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.hibernate.SQL: ERROR
+    br.com.deyvisonborges: DEBUG
+    org.flywaydb: DEBUG
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: dbserver-voting-api
+  server:
+    port: 8080
+
+  # Persistence configurations
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: dev
+    password: dev
+    url: jdbc:postgresql://localhost:5432/dbserver_voting_db
+  jpa:
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      jdbc:
+        time_zone: UTC
+  flyway:
+    enabled: true
+    validate-migration-naming: true
+    baseline-on-migrate: true
+    lock-retry-count: 10
+    locations:
+      - classpath:db/migration
+
+  jackson:
+    time-zone: UTC
+    deserialization:
+      fail-on-unknown-properties: false
