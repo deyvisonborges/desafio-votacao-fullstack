@@ -1,11 +1,15 @@
 package br.com.deyvisonborges.dbservervotingapi.app.exceptions;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.Instant;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -30,6 +34,19 @@ public class GlobalExceptionHandler {
     );
     log.error("BusinessException: {}", ex.getMessage());
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+  }
+  
+  @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+  public ResponseEntity<ErrorResponse> handleOptimisticLock(
+    final ObjectOptimisticLockingFailureException ex,
+    final HttpServletRequest request
+  ) {
+    ErrorResponse error = new ErrorResponse(
+      "A entidade foi modificada por outro usuário. Atualize e tente novamente.",
+      409,
+      System.currentTimeMillis()
+    );
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
   }
 }
 

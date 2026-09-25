@@ -7,5 +7,8 @@ public record CreateVotingSessionCommand(
     if (durationInMinutes == null) {
       durationInMinutes = 1;
     }
+    if(durationInMinutes < 0) {
+      throw new IllegalArgumentException("Duration cannot be negative");
+    }
   }
 }

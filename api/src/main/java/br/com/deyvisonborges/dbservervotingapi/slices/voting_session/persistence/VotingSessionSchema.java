@@ -7,7 +7,13 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "voting_sessions")
+@NamedEntityGraph(
+  name = VotingSessionSchema.WITH_AGENDA,
+  attributeNodes = @NamedAttributeNode("agenda")
+)
 public class VotingSessionSchema {
+  public static final String WITH_AGENDA = "VotingSession.withAgenda";
+  
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -34,8 +40,8 @@ public class VotingSessionSchema {
     return agenda;
   }
   
-  public void setAgendaId(AgendaSchema agendaId) {
-    this.agenda = agendaId;
+  public void setAgenda(AgendaSchema agenda) {
+    this.agenda = agenda;
   }
   
   public Instant getStartAt() {

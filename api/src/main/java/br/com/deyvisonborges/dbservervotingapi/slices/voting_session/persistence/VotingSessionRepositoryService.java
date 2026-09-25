@@ -48,4 +48,8 @@ public class VotingSessionRepositoryService {
     return repository.findAllWithAgenda()
       .stream().map(VotingSessionMapper::toModel).toList();
   }
+  
+  public boolean existsActiveSessionWithLock(Long agendaId) {
+    return repository.existsActiveSessionWithLock(agendaId, Instant.now());
+  }
 }
