@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a9e73fbd-eaff-4347-b08b-589aaba23aa5" name="Changes" comment="chore: adjusts in VotingSessionSchema">
+      <change afterPath="$PROJECT_DIR$/api/src/main/java/br/com/deyvisonborges/dbservervotingapi/app/security/jwt/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api-client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/api-client.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="package-info" />
+        <option value="Enum" />
+        <option value="Record" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="39rER3q5Euk0rHqRhwhPWr1RMtW" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DbserverVotiingApiApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AbstractTestcontainersIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaControllerTest.createAgenda.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaControllerTest.shouldCreateAgendaSuccessfully.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaControllerTest.shouldReturnAgendaWhenIdExists.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaJpaRepositoryTest and 1 more.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaJpaRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaModelTest.shouldCreateAgendaWithCreatedStatusWhenValidData.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaRepositoryServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaRepositoryServiceTest.findById_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AgendaRepositoryServiceTest.update_Success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.java in dbserver-voting-api.executor&quot;: &quot;Run&quot;,
+    &quot;Makefile Target.test.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.DbserverVotiingApiApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DbserverVotiingApiApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/deyvisonborges/SpringProjects/dbserver-voting-api&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="br.com.deyvisonborges.dbservervotingapi.slices.agenda" />
+      <recent name="br.com.deyvisonborges.dbservervotingapi.slices.voting_session.features" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DbserverVotiingApiApplication (1)">
+    <configuration name="DbserverVotiingApiApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.deyvisonborges.dbservervotingapi.DbserverVotiingApiApplication" />
+      <module name="dbserver-voting-api" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AgendaIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dbserver-voting-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.deyvisonborges.dbservervotingapi.e2e.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.com.deyvisonborges.dbservervotingapi.e2e" />
+      <option name="MAIN_CLASS_NAME" value="br.com.deyvisonborges.dbservervotingapi.e2e.AgendaIntegrationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="java in dbserver-voting-api" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="dbserver-voting-api" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="test" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="DbserverVotiingApiApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+      <module name="dbserver-voting-api.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.deyvisonborges.dbservervotingapi.DbserverVotiingApiApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.deyvisonborges.dbservervotingapi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DbserverVotiingApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+      <module name="dbserver-voting-api" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.deyvisonborges.dbservervotingapi.DbserverVotiingApiApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.deyvisonborges.dbservervotingapi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.DbserverVotiingApiApplication (1)" />
+        <item itemvalue="Spring Boot.DbserverVotiingApiApplication" />
+        <item itemvalue="JUnit.java in dbserver-voting-api" />
+        <item itemvalue="JUnit.AgendaIntegrationTest" />
+        <item itemvalue="Makefile Target.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a9e73fbd-eaff-4347-b08b-589aaba23aa5" name="Changes" comment="" />
+      <created>1771445778628</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1771445778628</updated>
+    </task>
+    <task id="LOCAL-00001" summary="chore: init agenda tests">
+      <option name="closed" value="true" />
+      <created>1771639597905</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1771639597905</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: add necessary tests to agenda slice">
+      <option name="closed" value="true" />
+      <created>1771687807439</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1771687807439</updated>
+    </task>
+    <task id="LOCAL-00003" summary="chore: add ajusts in test and others configs">
+      <option name="closed" value="true" />
+      <created>1771825606994</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1771825606994</updated>
+    </task>
+    <task id="LOCAL-00004" summary="chore: adjusts in VotingSessionSchema">
+      <option name="closed" value="true" />
+      <created>1771836101554</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1771836101554</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="chore: init agenda tests" />
+    <MESSAGE value="feat: add necessary tests to agenda slice" />
+    <MESSAGE value="chore: add ajusts in test and others configs" />
+    <MESSAGE value="chore: adjusts in VotingSessionSchema" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: adjusts in VotingSessionSchema" />
+  </component>
+</project>

@@ -12,14 +12,14 @@ spring:
   application:
     name: dbserver-voting-api
   server:
-    port: 8080
+    port: ${APP_PORT:8080}
 
   # Persistence configurations
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: dev
-    password: dev
-    url: jdbc:postgresql://localhost:5432/dbserver_voting_db
+    username: ${DATABASE_USERNAME:dev}
+    password: ${DATABASE_PASSWORD:dev}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/dbserver_voting_db}
   jpa:
     show-sql: false
     open-in-view: false
@@ -40,3 +40,6 @@ spring:
     time-zone: UTC
     deserialization:
       fail-on-unknown-properties: false
+jwt:
+  secret: your-256-bit-secret-key-here-make-it-long-and-random
+  expiration: 86400000  # 24 hours in milliseconds

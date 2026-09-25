@@ -8,7 +8,7 @@ public final class VotingSessionMapper {
     var schema = new VotingSessionSchema();
     var agenda = new AgendaSchema();
     agenda.setId(model.getAgendaId());
-    schema.setAgendaId(agenda);
+    schema.setAgenda(agenda);
     schema.setStartAt(model.getStartAt());
     schema.setEndsAt(model.getEndsAt());
     return schema;

@@ -1,37 +1,40 @@
 #!/usr/bin/env bash
+# Entry point: detects the OS, provisions Java/Docker, prepares .env and boots
+# local dependencies. Windows: use scripts\setup.ps1 from PowerShell instead.
 
-set -e
+set -euo pipefail
+source "$(dirname "${BASH_SOURCE[0]}")/scripts/lib/common.sh"
 
-REQUIRED_JAVA_VERSION=21
-ORBSTACK_SOCKET="$HOME/.orbstack/run/docker.sock"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$ROOT_DIR"
 
-echo "🔎 Verificando Java..."
+OS="$(detect_os)"
+log_info "Detected OS: $OS"
 
-if ! command -v java &> /dev/null
-then
-    echo "☕ Java não encontrado. Instalando via SDKMAN..."
+case "$OS" in
+  macos) bash "$ROOT_DIR/scripts/setup-macos.sh" ;;
+  linux|wsl) bash "$ROOT_DIR/scripts/setup-linux.sh" ;;
+  windows)
+    log_warn "Detected a Windows shell (Git Bash/MSYS). Prefer running scripts\\setup.ps1 from PowerShell instead."
+    exit 1
+    ;;
+  *)
+    log_error "Unsupported OS. Please install Java 21, Docker and Docker Compose manually."
+    exit 1
+    ;;
+esac
 
-    if ! command -v sdk &> /dev/null
-    then
-        curl -s "https://get.sdkman.io" | bash
-        source "$HOME/.sdkman/bin/sdkman-init.sh"
-    fi
-
-    sdk install java ${REQUIRED_JAVA_VERSION}-tem
-fi
-
-echo "🐳 Verificando Docker..."
-
-if [ -z "$DOCKER_HOST" ]; then
-    if [ -S "$ORBSTACK_SOCKET" ]; then
-        export DOCKER_HOST="unix://$ORBSTACK_SOCKET"
-        echo "✅ DOCKER_HOST configurado para OrbStack: $DOCKER_HOST"
-    else
-        echo "ℹ️ DOCKER_HOST não definido. Usando padrão do sistema."
-    fi
+if [ ! -f "$ROOT_DIR/.env" ]; then
+  cp "$ROOT_DIR/.env.example" "$ROOT_DIR/.env"
+  log_ok "Created .env from .env.example"
 else
-    echo "✅ DOCKER_HOST já definido: $DOCKER_HOST"
+  log_info ".env already exists, leaving it untouched"
 fi
+
+chmod +x "$ROOT_DIR/mvnw" 2>/dev/null || true
+
+log_info "Starting local dependencies (docker compose up -d)..."
+docker compose up -d
 
 echo "📦 Baixando dependências..."
 ./mvnw clean install -DskipTests

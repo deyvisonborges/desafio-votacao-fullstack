@@ -2,8 +2,11 @@ package br.com.deyvisonborges.dbservervotingapi.slices.agenda.persistence;
 
 import br.com.deyvisonborges.dbservervotingapi.app.exceptions.ResourceNotFoundException;
 import br.com.deyvisonborges.dbservervotingapi.slices.agenda.AgendaModel;
+import br.com.deyvisonborges.dbservervotingapi.slices.agenda.constants.AgendaStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,5 +54,27 @@ public class AgendaRepositoryService {
   
   public List<AgendaModel> findAllByIds(final Set<Long> agendaIds) {
     return repository.findAllById(agendaIds).stream().map(AgendaMapper::toModel).toList();
+  }
+
+  /** Dynamic, paginated search combining the specifications built from [filter]. */
+  public Page<AgendaModel> search(final AgendaFilter filter, final Pageable pageable) {
+    return repository.findAll(AgendaSpecifications.fromFilter(filter), pageable)
+      .map(AgendaMapper::toModel);
+  }
+
+  public long countByStatus(final AgendaStatus status) {
+    return repository.countByStatus(status);
+  }
+
+  public boolean existsByTitle(final String title) {
+    return repository.existsByTitleIgnoreCase(title);
+  }
+
+  public List<AgendaModel> findMostRecent() {
+    return repository.findTop10ByOrderByCreatedAtDesc().stream().map(AgendaMapper::toModel).toList();
+  }
+
+  public List<AgendaVoteCountProjection> findAgendaVoteCounts() {
+    return repository.findAgendaVoteCounts();
   }
 }
